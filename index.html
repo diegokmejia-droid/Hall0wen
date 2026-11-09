@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Estás a salvo, Diego?</title>
+    <style>
+        /* Estilo tétrico y oscuro de Terror Analógico */
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #050505;
+            font-family: 'Courier New', Courier, monospace;
+            color: #ff0000;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .container {
+            background-color: #000000;
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid #330000;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.1);
+            max-width: 450px;
+            width: 90%;
+        }
+
+        /* El personaje perturbador */
+        .scary-pic {
+            width: 180px;
+            height: auto;
+            margin-bottom: 20px;
+            filter: grayscale(30%) contrast(120%);
+            border: 1px solid #222;
+        }
+
+        h1 {
+            font-size: 1.6rem;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+            animation: glitch 1.5s infinite;
+        }
+
+        /* Efecto de parpadeo tétrico en las letras */
+        @keyframes glitch {
+            0% { opacity: 1; text-shadow: 2px 0 0 #f00; }
+            50% { opacity: 0.8; text-shadow: -2px 0 0 #00f; }
+            100% { opacity: 1; text-shadow: 2px 0 0 #f00; }
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 20px;
+            position: relative;
+            height: 60px;
+        }
+
+        button {
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            font-family: 'Courier New', Courier, monospace;
+            border: 1px solid #ff0000;
+            background: transparent;
+            color: #ff0000;
+            cursor: pointer;
+            transition: all 0.1s ease;
+        }
+
+        button:hover {
+            background-color: #ff0000;
+            color: #000;
+            box-shadow: 0 0 15px #ff0000;
+        }
+
+        #btn-no {
+            position: absolute;
+            left: 55%;
+            border: 1px solid #444;
+            color: #444;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="box">
+        <!-- Imagen optimizada del personaje de la captura -->
+        <img class="scary-pic" src="https://squarespace-cdn.com" alt="Creature">
+        
+        <h1 id="question">¿QUIERES CELEBRAR HALLOWEEN CONMIGO?</h1>
+        
+        <div class="buttons">
+            <button id="btn-si">SI</button>
+            <button id="btn-no">NO</button>
+        </div>
+    </div>
+
+    <script>
+        const btnSi = document.getElementById('btn-si');
+        const btnNo = document.getElementById('btn-no');
+        const box = document.getElementById('box');
+
+        // Función de escape del botón NO
+        function escapar() {
+            const x = Math.random() * (window.innerWidth - btnNo.offsetWidth - 40);
+            const y = Math.random() * (window.innerHeight - btnNo.offsetHeight - 40);
+            
+            btnNo.style.position = 'fixed';
+            btnNo.style.left = `${x}px`;
+            btnNo.style.top = `${y}px`;
+        }
+
+        btnNo.addEventListener('mouseenter', escapar);
+        btnNo.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            escapar();
+        });
+
+        // Respuesta final escalofriante al dar SÍ
+        btnSi.addEventListener('click', () => {
+            document.body.style.backgroundColor = "#000";
+            box.innerHTML = `
+                <h1 style="color: #ff0000; font-size: 2rem; animation: glitch 0.2s infinite;">
+                    SABÍA QUE DIRÍAS QUE SÍ...
+                </h1>
+                <p style="color: #666; font-size: 1.1rem;">ÉL YA ESTÁ EN CAMINO A TU HABITACIÓN.</p>
+            `;
+            btnNo.style.display = 'none';
+        });
+    </script>
+
+</body>
+</html>
